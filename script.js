@@ -47,25 +47,25 @@ identifyObjectsButton.addEventListener('click', function() {
         imgDivChildren = [];
         for(let i = 0; i < predictions.length; i++) {
 
-           const boxHeader = document.createElement("p");
-           boxHeader.setAttribute("class", "boxHeader");
-           boxHeader.innerText = predictions[i].class  + " - " 
+            const boxHeader = document.createElement("p");
+            boxHeader.setAttribute("class", "boxHeader");
+            boxHeader.innerText = predictions[i].class  + " - " 
                                 // Pourcentage de confiance dans la prédiction 
                                 + Math.round(parseFloat(predictions[i].score) * 100) 
                                 + "% confidence";
 
-        // Modifie les attributs de style du header de la boîte
-        // de prédiction grâce aux coordonnées rendu par prédiction
-           boxHeader.style = "margin-left: " + predictions[i].bbox[0] + "px; " +
+            // Modifie les attributs de style du header de la boîte
+            // de prédiction grâce aux coordonnées rendu par prédiction
+            boxHeader.style = "margin-left: " + predictions[i].bbox[0] + "px; " +
                             "margin-top: " + (predictions[i].bbox[1] - 20) + "px;" +
                             "width: " + (predictions[i].bbox[2] - 10) + "px; " + 
                             "top: 0; " +
                             "left: 0;";
 
 
-        // Définis la balise qui englobe les prédiction avec les coordonnées 
-        // renvoyés dans bbox[1-3] dans le json de prediction, et application
-        // de ces coordo dans le css
+            // Définis la balise qui englobe les prédiction avec les coordonnées 
+            // renvoyés dans bbox[0-3] dans le json de prediction, et application
+            // de ces coordo dans le css (espace avec le gauche et droite + largeur et hauteur)
             const boxDiv = document.createElement("div");
             boxDiv.setAttribute("class", "box");
             boxDiv.style = "left: " + predictions[i].bbox[0] + "px; " + 
@@ -89,6 +89,8 @@ identifyObjectsButton.addEventListener('click', function() {
 
         const tableBody = document.getElementById("tbody")
 
+        // Stockage des values de objetsInventaire dans des row de la table
+        // du HTML
         for (let i=0; i< objetsInventaire.length; i++) {
             var row = tableBody.insertRow(i)
             var rownb = row.insertCell(0)
@@ -98,20 +100,24 @@ identifyObjectsButton.addEventListener('click', function() {
             rowname.innerHTML = objetsInventaire[i]["objet"]
         }
         
-        
+        // Grepher à la fin de la 'phrase' les objets et leurs nombre
+        // avec enrichissement sémantique
         let phrase = `Selon mes prédictions, dans cette image il y a : `
         for (let i=0; i< objetsInventaire.length; i++) {
             const obj = objetsInventaire[i];
             const info = semanticData[obj.objet];
+            // Opérateur ternaire , si obj.nb === 1 => ligne1(?), sinon ligne2(:)
+            // Si l'objet n'est pas dans info, on affiche {nb}{objet}
             const nom = info
                 ? (obj.nb === 1
-                    ? `${info.article} ${info.traduction}`
-                    : `${obj.nb} ${info.traduction}s`)
+                    ? `${info.article} ${info.traduction}, c'est ${info.description}`
+                    : `${obj.nb} ${info.traduction}s, c'est ${info.description}`)
                 : `${obj.nb} ${obj.objet}`;
             phrase += `${nom}. `;
         }
         console.log(phrase)
 
+        // TTS de la phrase
         const utterance = new SpeechSynthesisUtterance(phrase);
         utterance.lang = "fr-FR";
         utterance.rate = 1;
