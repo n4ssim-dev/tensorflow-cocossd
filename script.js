@@ -5,7 +5,7 @@ async function chargerModele()  // Notions : async, await, variable globale
 
 
 async function chargerImage()   // Notions : addEventListener, URL.createObjectURL(), canvas, ctx.drawImage()
-{
+{const countElement=document.getElementById("submit")
 
 }
 

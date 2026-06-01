@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Aide pour mal voyant</title>
+    <script>src="script.js"</script>
+    <link rel="stylesheet" href="style.css"/>
+    <!-- Import TensorFlow.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
 </head>
 <body>
-    
+    <h2>Télécharger</h2>
+    <form method="post" url="/upload-picture" enctype="multipart/form-data" >
+     
+    <input id="submit" type="file" name="picture" onchange="previewPicture(this)" required >
+    <button id="analyser" >Analyser</button> 
+    </form>
+<img src="#" alt="" id="image" style="max-width: 500px; margin-top: 20px;">
+<script type="text/javascript" >
+    // L'image img#image
+    var image = document.getElementById("image");
+     
+    // La fonction previewPicture
+    var previewPicture  = function (e) {
+
+        // e.files contient un objet FileList
+        const [picture] = e.files
+
+        // "picture" est un objet File
+        if (picture) {
+            // On change l'URL de l'image
+            image.src = URL.createObjectURL(picture)
+        }
+    } 
+</script>
+
 </body>
+<script>src="script.js"</script>
 </html>
