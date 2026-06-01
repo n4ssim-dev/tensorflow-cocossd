@@ -1,6 +1,9 @@
 async function chargerModele()  // Notions : async, await, variable globale 
 {
-
+    var model;
+    cocoSsd.load().then(cocoSsdModel => {
+    model = cocoSsdModel;
+    });
 }
 
 
