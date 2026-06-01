@@ -4,9 +4,15 @@ const identifyObjectsButton = document.getElementById('identifyObjectsButton');
 const imgDiv = document.getElementById('imgDiv');
 const tbody = document.getElementById('tbody');
 
+// Chargement du modèle et des données sémantiques
 var model;
-cocoSsd.load().then(cocoSsdModel => {
+var semanticData = {};
+Promise.all([
+  cocoSsd.load(),
+  fetch('semantic.json').then(r => r.json())
+]).then(([cocoSsdModel, data]) => {
   model = cocoSsdModel;
+  semanticData = data;
 });
 
 chooseFiles.onchange = evt => {
@@ -23,7 +29,6 @@ chooseFiles.onchange = evt => {
   }
 };
 
-
 // Déclare imgDiv qui abrite les predicitions et leurs zones associés dans l'image
 var imgDivChildren = [];
 var inventaire = []
@@ -35,7 +40,7 @@ identifyObjectsButton.addEventListener('click', function() {
         // Utilise la fonction Detect de tfjs avec comme
         // parametre selectedImg et produits des predictions avec
         // la fonction prediction de tensorflow
-      model.detect(selectedImg).then(predictions => {
+        model.detect(selectedImg).then(predictions => {
         console.log("Predictions: ", predictions);
 
         // Peuple imgDivChildren des predictions associés à une zone (Header, boxDiv, imgDiv)
@@ -92,7 +97,26 @@ identifyObjectsButton.addEventListener('click', function() {
             rownb.innerHTML = objetsInventaire[i]["nb"]
             rowname.innerHTML = objetsInventaire[i]["objet"]
         }
-        console.log(objetsInventaire)
+        
+        
+        let phrase = `Selon mes prédictions, dans cette image il y a : `
+        for (let i=0; i< objetsInventaire.length; i++) {
+            const obj = objetsInventaire[i];
+            const info = semanticData[obj.objet];
+            const nom = info
+                ? (obj.nb === 1
+                    ? `${info.article} ${info.traduction}`
+                    : `${obj.nb} ${info.traduction}s`)
+                : `${obj.nb} ${obj.objet}`;
+            phrase += `${nom}. `;
+        }
+        console.log(phrase)
+
+        const utterance = new SpeechSynthesisUtterance(phrase);
+        utterance.lang = "fr-FR";
+        utterance.rate = 1;
+        utterance.pitch = 2;
+        speechSynthesis.speak(utterance);
       });
     }
 });
