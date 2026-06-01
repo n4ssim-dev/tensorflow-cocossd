@@ -1,0 +1,42 @@
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 2em;
+}
+
+h1 {
+  color: red;
+}
+
+.imageWrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-width: 1px;
+    max-width: 500px;
+    position: relative;
+}
+
+.box {
+  background: rgba(255, 0, 0, 0.25);
+  border: 1px dashed #fff;
+  z-index: 1;
+  position: absolute;
+}
+
+.boxHeader {
+  position: absolute;
+  padding: 5px;
+  background-color: rgba(0, 100, 100, 0.85);
+  color: #fff;
+  border: 1px dashed #fff;
+  z-index: 2;
+  font-size: 8px;
+}
+
+.inventaire {
+    width: 30%;
+    color: black;
+}
+
+table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background-color: #f2f2f2; font-weight: bold; }

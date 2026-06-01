@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<html>
+  <head>
+    <title>Détection d'objets avec TensorFlow.js</title>
+    <link rel="stylesheet" href="style.css">
+  </head>  
+  <body>
+    <h1>Dectection d'objets avec Tensorflow.js</h1>    
+    <div class="prediction" >
+        <input type="file" id="chooseFiles" accept="image/*"/>
+        
+        <!-- Placeholder de l'image -->
+        <div id="imgDiv" class="imageWrapper">
+        <img id="selectedImg" width="100%" height="auto"/>
+        </div>
+        
+        <button id="identifyObjectsButton" disabled>Analyser les objets.</button>
+    </div>
+
+    <table border="0" class="inventaire ">
+        <caption>Inventaire des prédictions :</caption>
+        <thead>
+            <tr>
+                <th scope="col">Quantité</th>
+                <th scope="col">Objet</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody">
+            <!-- Insérer tr pour chaque objet (nb objet, nom objet)-->
+        </tbody>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <script src="script.js" defer></script>
+  </body>
 </html>
