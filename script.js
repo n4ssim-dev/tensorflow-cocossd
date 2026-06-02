@@ -101,7 +101,6 @@ identifyObjectsButton.addEventListener('click', function() {
         var existing = JSON.parse(localStorage.getItem('results') || '[]');
         existing.push(result);
         localStorage.setItem('results', JSON.stringify(existing));
-
         console.log("Objet stocké avec succès dans le localStorage.")
 
         const tableBody = document.getElementById("tbody")
