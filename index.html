@@ -1,11 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daidtech – Inventaire Vocal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-    
+<div class="app">
+
+  <!-- HEADER -->
+  <header role="banner">
+    <div class="logo-dot" aria-hidden="true"></div>
+    <span class="logo-name">Daidtech</span>
+    <span class="logo-sep" aria-hidden="true">/</span>
+    <span class="logo-sub">Inventaire Vocal</span>
+    <span class="header-badge" aria-label="Application accessibilité">Accessibilité</span>
+  </header>
+
+  <!-- LEFT : upload + image -->
+  <main class="col-left" aria-label="Zone de chargement d'image">
+
+    <div class="upload-card">
+      <label class="card-label" for="chooseFiles">Choisir une image</label>
+      <input type="file" id="chooseFiles" accept="image/*" name="Upload"
+             aria-describedby="upload-hint"/>
+      <span id="upload-hint" style="display:none">Formats acceptés : JPG, PNG, WEBP</span>
+    </div>
+
+    <div id="imgDiv" class="imageWrapper" role="img" aria-label="Aperçu de l'image sélectionnée">
+      <div class="img-placeholder" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="3"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Aucune image sélectionnée</span>
+      </div>
+      <img id="selectedImg" alt="Image à analyser"/>
+    </div>
+
+    <button id="identifyObjectsButton" disabled
+            aria-disabled="true"
+            aria-label="Lancer l'analyse de détection d'objets">
+      Analyser l'image
+    </button>
+
+  </main>
+
+  <!-- RIGHT : résultats -->
+  <section class="col-right" aria-label="Résultats de l'analyse">
+
+    <h2 class="col-title">Résultats de l'analyse</h2>
+
+    <div class="table-wrap">
+      <table class="inventaire">
+        <caption style="display:block; font-size:16px; font-weight:700; color:var(--text); padding:14px 20px 0; text-align:left;">
+          Inventaire des objets détectés
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Quantité</th>
+            <th scope="col">Objet détecté</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr class="empty-row">
+            <td colspan="2">Aucune analyse effectuée</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="phrase-prediction-wrap" role="status" aria-live="polite" aria-label="Description vocale">
+      <div class="phrase-icon" aria-hidden="true">🔊</div>
+      <div class="phrase-meta">
+        <span class="phrase-label">Synthèse vocale</span>
+        <p id="phrase-prediction"></p>
+      </div>
+    </div>
+
+    <button id="exportJsonButton" disabled
+            aria-disabled="true"
+            aria-label="Exporter les résultats en fichier JSON">
+      Exporter en JSON
+    </button>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="status-dot" aria-hidden="true"></div>
+    <span class="status-text">TensorFlow.js · COCO-SSD · Modèle prêt</span>
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+<script src="script.js" defer></script>
 </body>
 </html>
