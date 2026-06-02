@@ -3,17 +3,14 @@ const selectedImg = document.getElementById('selectedImg');
 const identifyObjectsButton = document.getElementById('identifyObjectsButton');
 const imgDiv = document.getElementById('imgDiv');
 const tbody = document.getElementById('tbody');
+var imageLink;
 
 // Chargement du modèle et des données sémantiques
 var model;
 var semanticData = {};
-Promise.all([
-  cocoSsd.load(),
-  fetch('semantic.json').then(r => r.json())
-]).then(([cocoSsdModel, data]) => {
-  model = cocoSsdModel;
-  semanticData = data;
-});
+
+cocoSsd.load().then(m => { model = m; });
+fetch('semantic.json').then(r => r.json()).then(data => { semanticData = data; });
 
 chooseFiles.onchange = evt => {
   //Clear le container de l'image 
@@ -21,17 +18,20 @@ chooseFiles.onchange = evt => {
     imgDiv.removeChild(imgDivChildren[i]);
   }
 
-  // Affiche l'image sélectionné et active le bouton identifyObjects
+  // Affiche l'image sélectionné et active le bouton identifyObjects (Analyse)
   const [file] = chooseFiles.files
   if (file) {
     selectedImg.src = URL.createObjectURL(file)
+    var imgLink = selectedImg.src
     identifyObjectsButton.disabled = false;
+    imageLink = imgLink
   }
 };
 
 // Déclare imgDiv qui abrite les predicitions et leurs zones associés dans l'image
 var imgDivChildren = [];
 var inventaire = []
+
 
 // Lorsque le bouton identifyObjects est appuyé l'analyse se lance
 identifyObjectsButton.addEventListener('click', function() {
@@ -87,21 +87,22 @@ identifyObjectsButton.addEventListener('click', function() {
             ({objet:a, nb: inventaire.filter(f => f === a).length}));
         }   
 
-        // Stockage des objets de objetsInventaire dans un objet avec la bonne valeur
-        // (date(datetime), lien de l'image fourni, inventaire des objets)
-        var objetDb = {
+        var result = {
           "date": new Date().toLocaleString(),
-          "image": URL.createObjectURL(file),
-          "inventaire": [
-            {
-              "nom": "objet",
-              "qte": 0
-            },
-            {
-              "...": "..."
-            }
-          ]
+          "image": imageLink,
+          "inventaire": objetsInventaire.map(item => ({
+            "nom": item.objet,
+            "qte": item.nb
+          }))
         }
+
+        // Cible les objets préexistants déja push dans le local storage
+        // et lui ajoute l'objet result
+        var existing = JSON.parse(localStorage.getItem('results') || '[]');
+        existing.push(result);
+        localStorage.setItem('results', JSON.stringify(existing));
+
+        console.log("Objet stocké avec succès dans le localStorage.")
 
         const tableBody = document.getElementById("tbody")
 
