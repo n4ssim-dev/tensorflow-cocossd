@@ -87,6 +87,22 @@ identifyObjectsButton.addEventListener('click', function() {
             ({objet:a, nb: inventaire.filter(f => f === a).length}));
         }   
 
+        // Stockage des objets de objetsInventaire dans un objet avec la bonne valeur
+        // (date(datetime), lien de l'image fourni, inventaire des objets)
+        var objetDb = {
+          "date": new Date().toLocaleString(),
+          "image": URL.createObjectURL(file),
+          "inventaire": [
+            {
+              "nom": "objet",
+              "qte": 0
+            },
+            {
+              "...": "..."
+            }
+          ]
+        }
+
         const tableBody = document.getElementById("tbody")
 
         // Stockage des values de objetsInventaire dans des row de la table
