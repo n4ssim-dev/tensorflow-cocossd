@@ -15,8 +15,8 @@ Ce projet vise à produire une application web minimale visant à produire des s
 6. (Bonus) Stocker les réusltats pour une future analyse.
 
 ## Lien importants
-- [Guide de fonctionnement](GUIDE_FONCTIONNEMENT.md)
-- [Guide d'utilisation](GUIDE_UTILISATION)
+- [Guide de fonctionnement](guides/GUIDE_FONCTIONNEMENT.md) (Réalisé par Clément)
+- [Guide d'utilisation](guides/GUIDE_UTILISATION) (Réalisé par Lola)
 
 ## (*) Mentions spéciales
 
