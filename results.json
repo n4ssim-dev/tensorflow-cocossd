@@ -1,0 +1,202 @@
+[
+  {
+    "date": "6/2/2026, 11:13:33 AM",
+    "image": "blob:http://127.0.0.1:5500/e31cffb7-a28e-4991-9654-8126ef751fbf",
+    "inventaire": [
+      {
+        "nom": "potted plant",
+        "qte": 1
+      },
+      {
+        "nom": "book",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 11:20:53 AM",
+    "image": "blob:http://127.0.0.1:5500/056904d3-1f0d-440c-a32c-6d0c6c660755",
+    "inventaire": [
+      {
+        "nom": "chair",
+        "qte": 1
+      },
+      {
+        "nom": "dining table",
+        "qte": 1
+      },
+      {
+        "nom": "potted plant",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 11:21:41 AM",
+    "image": "blob:http://127.0.0.1:5500/84e7dafd-e98d-43aa-8646-43fc196c63ee",
+    "inventaire": [
+      {
+        "nom": "chair",
+        "qte": 1
+      },
+      {
+        "nom": "dining table",
+        "qte": 1
+      },
+      {
+        "nom": "potted plant",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 11:29:53 AM",
+    "image": "blob:http://127.0.0.1:5500/191023ed-568c-457e-a1d5-883e9e179d0b",
+    "inventaire": [
+      {
+        "nom": "potted plant",
+        "qte": 1
+      },
+      {
+        "nom": "book",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 11:42:35 AM",
+    "image": "blob:http://127.0.0.1:5500/ac2d4210-f861-44e9-bc65-77d82b4eb0a0",
+    "inventaire": [
+      {
+        "nom": "tv",
+        "qte": 1
+      },
+      {
+        "nom": "potted plant",
+        "qte": 2
+      },
+      {
+        "nom": "cup",
+        "qte": 1
+      },
+      {
+        "nom": "keyboard",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 11:51:37 AM",
+    "image": "blob:http://127.0.0.1:5500/484b88a7-ead9-493f-8c3b-3702a9c346b1",
+    "inventaire": [
+      {
+        "nom": "person",
+        "qte": 2
+      },
+      {
+        "nom": "laptop",
+        "qte": 1
+      },
+      {
+        "nom": "potted plant",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 11:56:24 AM",
+    "image": "blob:http://127.0.0.1:5500/e59e4a41-28c3-4799-a2bc-113098830fd4",
+    "inventaire": [
+      {
+        "nom": "book",
+        "qte": 1
+      },
+      {
+        "nom": "potted plant",
+        "qte": 1
+      },
+      {
+        "nom": "laptop",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 11:58:55 AM",
+    "image": "blob:http://127.0.0.1:5500/c221ca1d-488f-46e3-ad25-c041786d9a1c",
+    "inventaire": [
+      {
+        "nom": "book",
+        "qte": 2
+      },
+      {
+        "nom": "potted plant",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 11:59:32 AM",
+    "image": "blob:http://127.0.0.1:5500/1831ba4e-7f5c-4320-86fc-119f4bdf2503",
+    "inventaire": [
+      {
+        "nom": "potted plant",
+        "qte": 2
+      },
+      {
+        "nom": "tv",
+        "qte": 1
+      },
+      {
+        "nom": "couch",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 12:01:23 PM",
+    "image": "blob:http://127.0.0.1:5500/702687b8-d23b-4c39-b28c-023a5074bc29",
+    "inventaire": [
+      {
+        "nom": "tv",
+        "qte": 1
+      },
+      {
+        "nom": "potted plant",
+        "qte": 2
+      },
+      {
+        "nom": "couch",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 12:02:45 PM",
+    "image": "blob:http://127.0.0.1:5500/98d1aca6-1235-4cd2-8348-179112fee708",
+    "inventaire": [
+      {
+        "nom": "laptop",
+        "qte": 1
+      },
+      {
+        "nom": "cup",
+        "qte": 1
+      }
+    ]
+  },
+  {
+    "date": "6/2/2026, 1:24:55 PM",
+    "image": "blob:http://127.0.0.1:5500/ee967e54-75e1-409b-bc40-adeb20d411b7",
+    "inventaire": [
+      {
+        "nom": "book",
+        "qte": 1
+      },
+      {
+        "nom": "potted plant",
+        "qte": 1
+      }
+    ]
+  }
+]
