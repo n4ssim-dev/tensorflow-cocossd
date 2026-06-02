@@ -3,6 +3,7 @@ const selectedImg = document.getElementById('selectedImg');
 const identifyObjectsButton = document.getElementById('identifyObjectsButton');
 const imgDiv = document.getElementById('imgDiv');
 const tbody = document.getElementById('tbody');
+const phrasePrediction = document.getElementById('phrase-prediction')
 var imageLink;
 
 // Chargement du modèle et des données sémantiques
@@ -131,6 +132,8 @@ identifyObjectsButton.addEventListener('click', function() {
                 : `${obj.nb} ${obj.objet}`;
             phrase += `${nom}. `;
         }
+
+        phrasePrediction.innerText = phrase
         console.log(phrase)
 
         // TTS de la phrase
