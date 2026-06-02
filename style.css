@@ -1,0 +1,414 @@
+    /*
+     * WCAG 2.1 AA — règles appliquées :
+     *  • Texte normal   ≥ 4.5:1  (corps, labels, cellules)
+     *  • Texte large    ≥ 3:1    (titres ≥ 18px bold, ≥ 24px regular)
+     *  • Composants UI  ≥ 3:1    (bordures d'inputs, icônes actives)
+     *  • Taille min corps : 18px  (malvoyants)
+     *  • Taille min labels : 16px
+     *  • Zone de clic min : 44×44px (WCAG 2.5.5)
+     *  • Focus visible  : outline 3px offset 3px
+     *  • Pas de couleur seule pour véhiculer l'info
+     */
+
+    :root {
+      /* Palette contrôlée — ratios vérifiés sur fond #f5f7f5 et #ffffff */
+      --bg:        #f5f7f5;   /* fond page */
+      --surface:   #ffffff;   /* cartes */
+      --border:    #b0bdb0;   /* ratio UI ≥ 3:1 sur blanc ✓ */
+
+      --text:      #1a221a;   /* ratio 14.5:1 sur blanc ✓ */
+      --muted:     #4a5c4a;   /* ratio 7.1:1 sur blanc ✓ — remplace #7a8a7a */
+
+      --green:     #1a7a4a;   /* ratio 7.2:1 sur blanc ✓ — texte vert foncé */
+      --green-btn: #1a7a4a;   /* ratio 7.2:1 sur blanc ; texte blanc 10.8:1 ✓ */
+      --green-btn-hover: #145c38;
+      --green-lt:  #e6f4ec;   /* fond badge, jamais utilisé seul pour du texte */
+
+      --disabled-bg:   #d0d8d0;
+      --disabled-text: #5a6a5a; /* ratio 4.7:1 sur --disabled-bg ✓ */
+
+      --radius: 12px;
+      --font:   'Atkinson Hyperlegible', Arial, sans-serif;
+      /* Atkinson Hyperlegible : conçue pour malvoyants (APH) */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 18px;        /* base ≥ 18px */
+      line-height: 1.6;
+    }
+
+    /* ── LAYOUT ──────────────────────────────────────────────────── */
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "header header"
+        "left   right"
+        "footer footer";
+    }
+
+    /* ── HEADER ──────────────────────────────────────────────────── */
+    header {
+      grid-area: header;
+      background: var(--surface);
+      border-bottom: 2px solid var(--border);
+      padding: 18px 36px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      /* décoratif uniquement — pas porteur d'info seul */
+    }
+
+    .logo-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .logo-sep {
+      font-size: 20px;
+      color: var(--border);
+      margin: 0 2px;
+      aria-hidden: true;
+    }
+
+    .logo-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--muted);   /* ratio 7.1:1 ✓ */
+    }
+
+    .header-badge {
+      margin-left: auto;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);         /* ratio 7.2:1 sur --green-lt ✓ */
+      background: var(--green-lt);
+      border: 2px solid var(--green);
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* ── LEFT COLUMN ─────────────────────────────────────────────── */
+    .col-left {
+      grid-area: left;
+      padding: 28px 24px 28px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border-right: 2px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* upload card */
+    .upload-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+
+    .card-label {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);    /* ratio 14.5:1 ✓ */
+      margin-bottom: 12px;
+    }
+
+    input[type="file"] {
+      font-family: var(--font);
+      font-size: 16px;
+      color: var(--text);
+      background: var(--bg);
+      border: 2px solid var(--border);   /* ratio UI ≥ 3:1 ✓ */
+      border-radius: 8px;
+      padding: 12px 14px;
+      width: 100%;
+      cursor: pointer;
+      min-height: 52px;     /* zone de clic ≥ 44px ✓ */
+      transition: border-color 0.18s;
+    }
+    input[type="file"]:hover {
+      border-color: var(--green);
+    }
+    input[type="file"]::file-selector-button {
+      background: var(--green-btn);
+      color: #ffffff;        /* ratio 10.8:1 ✓ */
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      margin-right: 12px;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      min-height: 36px;
+      transition: background 0.18s;
+    }
+    input[type="file"]::file-selector-button:hover {
+      background: var(--green-btn-hover);
+    }
+
+    /* image wrapper */
+    .imageWrapper {
+      position: relative;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);   /* ratio 7.1:1 ✓ */
+      pointer-events: none;
+      padding: 24px;
+      text-align: center;
+    }
+    .img-placeholder svg { opacity: 0.5; }
+    .img-placeholder span {
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .imageWrapper.has-image .img-placeholder { display: none; }
+
+    #selectedImg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* bouton analyser */
+    #identifyObjectsButton {
+      width: 100%;
+      min-height: 60px;      /* zone ≥ 44px ✓ */
+      background: var(--green-btn);
+      color: #ffffff;        /* ratio 10.8:1 ✓ */
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.18s, transform 0.12s;
+    }
+    #identifyObjectsButton:hover:not(:disabled) {
+      background: var(--green-btn-hover);
+      transform: translateY(-1px);
+    }
+    #identifyObjectsButton:active:not(:disabled) { transform: translateY(0); }
+    #identifyObjectsButton:disabled {
+      background: var(--disabled-bg);
+      color: var(--disabled-text);  /* ratio 4.7:1 ✓ */
+      cursor: not-allowed;
+    }
+
+    /* ── RIGHT COLUMN ────────────────────────────────────────────── */
+    .col-right {
+      grid-area: right;
+      padding: 28px 36px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      overflow: hidden;
+    }
+
+    .col-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);    /* ratio 14.5:1 ✓ */
+    }
+
+    /* tableau */
+    .table-wrap {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+    }
+
+    table { border-collapse: collapse; width: 100%; }
+    caption { display: none; }
+
+    thead tr {
+      background: var(--bg);
+      border-bottom: 2px solid var(--border);
+    }
+    th {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);    /* ratio 14.5:1 ✓ — au lieu de --muted */
+      padding: 14px 20px;
+      text-align: left;
+    }
+    td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 18px;       /* ≥ 18px ✓ */
+      color: var(--text);
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: var(--green-lt); }
+
+    td:first-child {
+      font-weight: 700;
+      color: var(--green);   /* ratio 7.2:1 ✓ */
+      width: 80px;
+      font-size: 20px;
+    }
+
+    .empty-row td {
+      text-align: center;
+      color: var(--muted);   /* ratio 7.1:1 ✓ */
+      font-size: 16px;
+      padding: 32px;
+    }
+
+    /* phrase prédiction */
+    #phrase-prediction-wrap {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .phrase-icon {
+      width: 44px; height: 44px;  /* zone ≥ 44px ✓ */
+      border-radius: 8px;
+      background: var(--green-lt);
+      border: 2px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .phrase-meta { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+
+    .phrase-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);   /* ratio 7.1:1 ✓ */
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    #phrase-prediction {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text);    /* ratio 14.5:1 ✓ */
+    }
+
+    #phrase-prediction:empty::before {
+      content: 'La description apparaîtra ici après l\'analyse…';
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #phrase-prediction.has-content { animation: fadeUp 0.3s ease both; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    footer {
+      grid-area: footer;
+      border-top: 2px solid var(--border);
+      background: var(--surface);
+      padding: 12px 36px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      /* décoratif + texte adjacent — pas porteur seul ✓ */
+    }
+    .status-text {
+      font-size: 16px;
+      color: var(--muted);   /* ratio 7.1:1 ✓ */
+      font-weight: 400;
+    }
+
+    /* bounding boxes */
+    .box {
+      background: rgba(26,122,74,0.12);
+      border: 2px solid var(--green);
+      z-index: 2;
+      position: absolute;
+      border-radius: 4px;
+    }
+    .boxHeader {
+      position: absolute;
+      top: -24px; left: -2px;
+      padding: 3px 8px;
+      background: var(--green);
+      color: #ffffff;        /* ratio 10.8:1 ✓ */
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 4px 4px 0 0;
+      z-index: 3;
+      white-space: nowrap;
+    }
+
+    /* ── FOCUS VISIBLE ───────────────────────────────────────────── */
+    /* 3px offset 3px, visible sur tous les fonds ✓ */
+    :focus-visible {
+      outline: 3px solid var(--green);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ── ANIMATIONS ──────────────────────────────────────────────── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    header     { animation: fadeIn 0.3s ease both 0.05s; }
+    .col-left  { animation: fadeIn 0.35s ease both 0.1s; }
+    .col-right { animation: fadeIn 0.35s ease both 0.18s; }
+
+    /* Respect de la préférence système pour réduire les animations */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }

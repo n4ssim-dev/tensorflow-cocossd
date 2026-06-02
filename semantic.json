@@ -1,0 +1,52 @@
+{
+  "chair": {
+    "traduction": "chaise",
+    "article": "une",
+    "description": "un élément de mobilier servant à s'asseoir."
+  },
+  "dining table": {
+    "traduction": "table à manger",
+    "article": "une",
+    "description": "un meuble utilisé pour prendre les repas."
+  },
+  "potted plant": {
+    "traduction": "plante en pot",
+    "article": "une",
+    "description": "une plante cultivée dans un pot décoratif ou utilitaire."
+  },
+  "tv": {
+    "traduction": "télévision",
+    "article": "une",
+    "description": "un appareil permettant de regarder des programmes vidéo."
+  },
+  "couch": {
+    "traduction": "canapé",
+    "article": "un",
+    "description": "un siège confortable pouvant accueillir plusieurs personnes."
+  },
+  "book": {
+    "traduction": "livre",
+    "article": "un",
+    "description": "un ouvrage composé de pages reliées contenant du texte ou des images."
+  },
+  "cup": {
+    "traduction": "tasse",
+    "article": "une",
+    "description": "un récipient servant à boire des boissons chaudes ou froides."
+  },
+  "keyboard": {
+    "traduction": "clavier",
+    "article": "un",
+    "description": "un périphérique permettant de saisir du texte et des commandes."
+  },
+  "person": {
+    "traduction": "personne",
+    "article": "une",
+    "description": "un être humain."
+  },
+  "laptop": {
+    "traduction": "ordinateur portable",
+    "article": "un",
+    "description": "un ordinateur compact conçu pour être transporté et utilisé facilement."
+  }
+}
