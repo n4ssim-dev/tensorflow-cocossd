@@ -4,55 +4,64 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Daidtech – Inventaire Vocal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 <div class="app">
 
   <!-- HEADER -->
-  <header>
+  <header role="banner">
+    <div class="logo-dot" aria-hidden="true"></div>
     <span class="logo-name">Daidtech</span>
-    <span class="logo-sep">/</span>
+    <span class="logo-sep" aria-hidden="true">/</span>
     <span class="logo-sub">Inventaire Vocal</span>
-    <span class="header-badge">Accessibilité</span>
+    <span class="header-badge" aria-label="Application accessibilité">Accessibilité</span>
   </header>
 
   <!-- LEFT : upload + image -->
-  <div class="col-left">
+  <main class="col-left" aria-label="Zone de chargement d'image">
 
     <div class="upload-card">
-      <div class="card-label">Image</div>
-      <input type="file" id="chooseFiles" accept="image/*" name="Upload"/>
+      <label class="card-label" for="chooseFiles">Choisir une image</label>
+      <input type="file" id="chooseFiles" accept="image/*" name="Upload"
+             aria-describedby="upload-hint"/>
+      <span id="upload-hint" style="display:none">Formats acceptés : JPG, PNG, WEBP</span>
     </div>
 
-    <div id="imgDiv" class="imageWrapper">
-      <div class="img-placeholder">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div id="imgDiv" class="imageWrapper" role="img" aria-label="Aperçu de l'image sélectionnée">
+      <div class="img-placeholder" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <rect x="3" y="3" width="18" height="18" rx="3"/>
           <circle cx="8.5" cy="8.5" r="1.5"/>
           <path d="M21 15l-5-5L5 21"/>
         </svg>
         <span>Aucune image sélectionnée</span>
       </div>
-      <img id="selectedImg" alt="Image analysée"/>
+      <img id="selectedImg" alt="Image à analyser"/>
     </div>
 
-    <button id="identifyObjectsButton" disabled>Analyser l'image</button>
+    <button id="identifyObjectsButton" disabled
+            aria-disabled="true"
+            aria-label="Lancer l'analyse de détection d'objets">
+      Analyser l'image
+    </button>
 
-  </div>
+  </main>
 
   <!-- RIGHT : résultats -->
-  <div class="col-right">
+  <section class="col-right" aria-label="Résultats de l'analyse">
 
-    <div class="col-title">Résultats</div>
+    <h2 class="col-title">Résultats de l'analyse</h2>
 
     <div class="table-wrap">
       <table class="inventaire">
-        <caption>Inventaire des prédictions</caption>
+        <caption style="display:block; font-size:16px; font-weight:700; color:var(--text); padding:14px 20px 0; text-align:left;">
+          Inventaire des objets détectés
+        </caption>
         <thead>
           <tr>
-            <th scope="col">Qté</th>
+            <th scope="col">Quantité</th>
             <th scope="col">Objet détecté</th>
           </tr>
         </thead>
@@ -64,19 +73,19 @@
       </table>
     </div>
 
-    <div id="phrase-prediction-wrap">
-      <div class="phrase-icon">🔊</div>
+    <div id="phrase-prediction-wrap" role="status" aria-live="polite" aria-label="Description vocale">
+      <div class="phrase-icon" aria-hidden="true">🔊</div>
       <div class="phrase-meta">
         <span class="phrase-label">Synthèse vocale</span>
         <p id="phrase-prediction"></p>
       </div>
     </div>
 
-  </div>
+  </section>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="status-dot"></div>
+  <footer role="contentinfo">
+    <div class="status-dot" aria-hidden="true"></div>
     <span class="status-text">TensorFlow.js · COCO-SSD · Modèle prêt</span>
   </footer>
 
@@ -86,38 +95,36 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
 <script src="script.js" defer></script>
 <script>
-  // ── Image display fix ──────────────────────────────────────────────
-  // When script.js sets selectedImg.src, show it and hide placeholder
-  const _img = document.getElementById('selectedImg');
+  // ── Image display fix ────────────────────────────────────────────
+  const _img     = document.getElementById('selectedImg');
   const _wrapper = document.getElementById('imgDiv');
-  const _origDescriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+  const _origDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
   Object.defineProperty(_img, 'src', {
     set(val) {
-      _origDescriptor.set.call(this, val);
-      if (val) {
-        _wrapper.classList.add('has-image');
-      } else {
-        _wrapper.classList.remove('has-image');
-      }
+      _origDesc.set.call(this, val);
+      _wrapper.classList.toggle('has-image', !!val);
     },
-    get() { return _origDescriptor.get.call(this); }
+    get() { return _origDesc.get.call(this); }
   });
-  // Also catch onload in case src is set before this script runs
   _img.addEventListener('load', () => {
     if (_img.src && !_img.src.endsWith(window.location.href)) {
       _wrapper.classList.add('has-image');
     }
   });
 
-  // ── Empty-row fix ──────────────────────────────────────────────────
-  // Hide the placeholder row as soon as real rows are inserted
-  const _tbody = document.getElementById('tbody');
+  // ── Empty-row fix ────────────────────────────────────────────────
+  const _tbody    = document.getElementById('tbody');
   const _emptyRow = _tbody.querySelector('.empty-row');
-  const _observer = new MutationObserver(() => {
-    const hasRealRows = _tbody.querySelectorAll('tr:not(.empty-row)').length > 0;
-    if (_emptyRow) _emptyRow.style.display = hasRealRows ? 'none' : '';
-  });
-  _observer.observe(_tbody, { childList: true });
+  const _btn      = document.getElementById('identifyObjectsButton');
+  new MutationObserver(() => {
+    const hasRows = _tbody.querySelectorAll('tr:not(.empty-row)').length > 0;
+    if (_emptyRow) _emptyRow.style.display = hasRows ? 'none' : '';
+  }).observe(_tbody, { childList: true });
+
+  // Sync aria-disabled with disabled attribute on button
+  new MutationObserver(() => {
+    _btn.setAttribute('aria-disabled', _btn.disabled ? 'true' : 'false');
+  }).observe(_btn, { attributes: true, attributeFilter: ['disabled'] });
 </script>
 </body>
 </html>
