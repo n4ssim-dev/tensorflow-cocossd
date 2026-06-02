@@ -1,41 +1,38 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aide pour mal voyant</title>
-    <script>src="script.js"</script>
-    <link rel="stylesheet" href="style.css"/>
-    <!-- Import TensorFlow.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
+<html>
+  <head>
+    <title>Détection d'objets avec TensorFlow.js</title>
+    <link rel="stylesheet" href="style.css">
+  </head>  
+  <body>
+    <h1>Dectection d'objets avec Tensorflow.js</h1>    
+    <div class="prediction" >
+        <input type="file" id="chooseFiles" accept="image/*" name="Upload"/>
+        
+        <!-- Placeholder de l'image -->
+        <div id="imgDiv" class="imageWrapper">
+            <img id="selectedImg" width="100%" height="auto"/>
+        </div>
+        
+        <button id="identifyObjectsButton" disabled>Analyser.</button>
+    </div>
+
+    <table class="inventaire ">
+        <caption>Inventaire des prédictions :</caption>
+        <thead>
+            <tr>
+                <th scope="col">Quantité</th>
+                <th scope="col">Objet</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody">
+            <!-- Insérer tr pour chaque objet (nb objet, nom objet)-->
+        </tbody>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
-</head>
-<body>
-    <h2>Télécharger</h2>
-    <form method="post" url="/upload-picture" enctype="multipart/form-data" >
-     
-    <input id="submit" type="file" name="picture" onchange="previewPicture(this)" required >
-    <button id="analyser" >Analyser</button> 
-    </form>
-<img src="#" alt="" id="image" style="max-width: 500px; margin-top: 20px;">
-<script type="text/javascript" >
-    // L'image img#image
-    var image = document.getElementById("image");
-     
-    // La fonction previewPicture
-    var previewPicture  = function (e) {
-
-        // e.files contient un objet FileList
-        const [picture] = e.files
-
-        // "picture" est un objet File
-        if (picture) {
-            // On change l'URL de l'image
-            image.src = URL.createObjectURL(picture)
-        }
-    } 
-</script>
-
-</body>
-<script>src="script.js"</script>
+    <script src="script.js" defer></script>
+  </body>
 </html>
