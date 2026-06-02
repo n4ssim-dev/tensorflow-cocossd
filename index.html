@@ -81,6 +81,12 @@
       </div>
     </div>
 
+    <button id="exportJsonButton" disabled
+            aria-disabled="true"
+            aria-label="Exporter les résultats en fichier JSON">
+      Exporter en JSON
+    </button>
+
   </section>
 
   <!-- FOOTER -->
@@ -94,37 +100,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
 <script src="script.js" defer></script>
-<script>
-  // ── Image display fix ────────────────────────────────────────────
-  const _img     = document.getElementById('selectedImg');
-  const _wrapper = document.getElementById('imgDiv');
-  const _origDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
-  Object.defineProperty(_img, 'src', {
-    set(val) {
-      _origDesc.set.call(this, val);
-      _wrapper.classList.toggle('has-image', !!val);
-    },
-    get() { return _origDesc.get.call(this); }
-  });
-  _img.addEventListener('load', () => {
-    if (_img.src && !_img.src.endsWith(window.location.href)) {
-      _wrapper.classList.add('has-image');
-    }
-  });
-
-  // ── Empty-row fix ────────────────────────────────────────────────
-  const _tbody    = document.getElementById('tbody');
-  const _emptyRow = _tbody.querySelector('.empty-row');
-  const _btn      = document.getElementById('identifyObjectsButton');
-  new MutationObserver(() => {
-    const hasRows = _tbody.querySelectorAll('tr:not(.empty-row)').length > 0;
-    if (_emptyRow) _emptyRow.style.display = hasRows ? 'none' : '';
-  }).observe(_tbody, { childList: true });
-
-  // Sync aria-disabled with disabled attribute on button
-  new MutationObserver(() => {
-    _btn.setAttribute('aria-disabled', _btn.disabled ? 'true' : 'false');
-  }).observe(_btn, { attributes: true, attributeFilter: ['disabled'] });
-</script>
 </body>
 </html>

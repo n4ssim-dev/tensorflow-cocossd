@@ -1,6 +1,7 @@
 const chooseFiles = document.getElementById('chooseFiles');
 const selectedImg = document.getElementById('selectedImg');
 const identifyObjectsButton = document.getElementById('identifyObjectsButton');
+const exportJsonButton = document.getElementById('exportJsonButton');
 const imgDiv = document.getElementById('imgDiv');
 const tbody = document.getElementById('tbody');
 const phrasePrediction = document.getElementById('phrase-prediction')
@@ -104,6 +105,8 @@ identifyObjectsButton.addEventListener('click', function() {
         localStorage.setItem('results', JSON.stringify(existing));
         console.log("Objet stocké avec succès dans le localStorage.")
 
+        exportJsonButton.disabled = false;
+
         const tableBody = document.getElementById("tbody")
 
         // Stockage des values de objetsInventaire dans des row de la table
@@ -145,3 +148,34 @@ identifyObjectsButton.addEventListener('click', function() {
       });
     }
 });
+
+exportJsonButton.addEventListener('click', function() {
+    var existing = JSON.parse(localStorage.getItem('results') || '[]');
+    var blob = new Blob([JSON.stringify(existing, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'results.json';
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+// ---- !
+// Généré par IA dans une balise script dans le HTML initialement
+// ---- !
+
+function initUI() {
+    selectedImg.addEventListener('load', () => imgDiv.classList.add('has-image'));
+
+    const emptyRow = tbody.querySelector('.empty-row');
+    new MutationObserver(() => {
+        if (emptyRow) emptyRow.style.display = tbody.querySelectorAll('tr:not(.empty-row)').length > 0 ? 'none' : '';
+    }).observe(tbody, { childList: true });
+
+    [identifyObjectsButton, exportJsonButton].forEach(btn => {
+        new MutationObserver(() => btn.setAttribute('aria-disabled', String(btn.disabled)))
+            .observe(btn, { attributes: true, attributeFilter: ['disabled'] });
+    });
+}
+
+initUI();
